@@ -6,6 +6,7 @@ import { getRandomColor, uuid } from "../../../utils";
 import { INPUT_GROUP } from "../../../constants";
 import SelectGeometry from "./SelectGeometry";
 import { GroupFieldType } from "../../../model";
+import CheckboxChangeColor from "./CheckboxChangeColor";
 
 const Form = () => {
   const methods = useForm<GroupFieldType>();
@@ -45,6 +46,7 @@ const Form = () => {
         <NumberInput name="width" label="Width" type="number" />
         <NumberInput name="height" label="Height" type="number" />
         <NumberInput name="count" label="Number" type="number" />
+        <CheckboxChangeColor name="isMulticoloured" label="Раскрасить" />
         <Flex>
           <Button onClick={handleClear}>Cancel</Button>
           <Button onClick={handleSubmit(handleAddPrimitives)}>Add</Button>

@@ -10,6 +10,7 @@ type GroupField = {
   position: number[];
   fieldName: string;
   color: string;
+  isMulticoloured: boolean;
 };
 
 export type GroupFieldType = Record<GroupKeyType, number> & GroupField;
