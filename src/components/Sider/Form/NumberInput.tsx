@@ -8,7 +8,7 @@ interface Props extends InputProps {
 }
 
 const labelStyle: CSSProperties = {
-  flex: "80px",
+  flex: 1,
 };
 
 const NumberInput = ({ name, label }: Props) => {

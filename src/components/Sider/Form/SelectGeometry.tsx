@@ -1,14 +1,16 @@
 import { Flex, Select, SelectProps } from "antd";
-import { CSSProperties } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { useController } from "react-hook-form";
 import {
   OPTIONS_TYPE_BOX_GEOMETRY,
   OPTIONS_TYPE_CONE_GEOMETRY,
 } from "../../../constants";
+import { ElementMeshType } from "../../../model";
 
-interface Props extends SelectProps {
+interface Props extends Omit<SelectProps, "children"> {
   name: string;
   label: string;
+  children: ({ key }: { key: ElementMeshType["type"] }) => ReactNode;
 }
 
 const options = [
@@ -16,17 +18,20 @@ const options = [
   { value: OPTIONS_TYPE_CONE_GEOMETRY, label: "Cone" },
 ];
 
-const labelStyle: CSSProperties = {
-  flex: "80px",
+const boxStyle: CSSProperties = {
+  flex: "50%",
 };
 
-const SelectGeometry = ({ name, label, ...rest }: Props) => {
+const SelectGeometry = ({ name, label, children, ...rest }: Props) => {
   const { field } = useController({ name, rules: { required: true } });
   return (
-    <Flex gap={16}>
-      <div style={labelStyle}>{label}</div>
-      <Select options={options} {...field} {...rest} />
-    </Flex>
+    <>
+      <Flex gap={16}>
+        <div style={boxStyle}>{label}</div>
+        <Select options={options} {...field} {...rest} style={boxStyle} />
+      </Flex>
+      {children({ key: field.value })}
+    </>
   );
 };
 

@@ -1,21 +1,31 @@
+import { BufferGeometry } from "three";
 import {
   OPTIONS_TYPE_BOX_GEOMETRY,
   OPTIONS_TYPE_CONE_GEOMETRY,
 } from "../constants";
 
-export type GroupKeyType = "width" | "height" | "length" | "count";
+type BoxGeometryType = Record<"width" | "height" | "length", number> & {
+  type: typeof OPTIONS_TYPE_BOX_GEOMETRY;
+};
+type ConeGeometryType = Record<
+  "radius" | "height" | "radialSegments",
+  number
+> & {
+  type: typeof OPTIONS_TYPE_CONE_GEOMETRY;
+};
 
-type GroupField = {
+export interface GroupFieldType {
+  count: number;
+  geometryParam: BoxGeometryType | ConeGeometryType;
+}
+export interface ElementMeshType {
   type: typeof OPTIONS_TYPE_BOX_GEOMETRY | typeof OPTIONS_TYPE_CONE_GEOMETRY;
   position: number[];
   fieldName: string;
   color: string;
-  isMulticoloured: boolean;
-};
-
-export type GroupFieldType = Record<GroupKeyType, number> & GroupField;
-
+  geometry: BufferGeometry;
+}
 export interface FormPrimitiveType {
-  INPUT_GROUP: Record<string, GroupFieldType>;
-  INPUT_FOCUS_ELEMENT: string | null;
+  inputGroup: Record<string, ElementMeshType>;
+  inputFocus: string | null;
 }
